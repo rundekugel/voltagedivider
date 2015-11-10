@@ -1,0 +1,91 @@
+<!DOCTYPE html><html lang="de-DE">
+<head>
+
+<title>Voltage Divider Calculator</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<script type="text/JavaScript" src="voltagedivider.js" ></script>
+</head>
+
+
+<body>
+
+<h1>Voltage Divider Calculator</h1>
+<hr>
+
+Ug:<input id="ug" type="text" value="7" onchange="check('rug');">
+    <input name="u" type="radio" id="rug" checked onchange="update();"><br>
+U1:<input id="u1" type="text" value="5" onchange="check('ru1');">
+    <input name="u" type="radio" id="ru1" onchange="update();"><br>
+U2:<input id="u2" type="text" value="2" onchange="update();"><br>
+
+<fieldset> 
+<input type="checkbox"  id="e12" onchange="update();">E12
+<input type="checkbox"  id="e24" checked onchange="update();">E24
+<input type="checkbox"  id="e48"  onchange="update();">E48
+<input type="checkbox"  id="e96" checked onchange="update();">E96
+</fieldset> 
+
+<button onclick="calc1();">Calculate</button><br>
+<!-- <button onclick="test();">test</button><br> -->
+
+Result:
+<div id="result">-</div>
+<hr>
+
+<script type="text/JavaScript">
+
+function test(){
+  getId("result").innerHTML  = "2lkj";
+  getId("result").innerHTML  += rtGetVer();
+  getId("result").innerHTML  += "xx.";
+  update();
+}
+
+function update(){
+  if(getId("rug").checked){
+    getId('u1').value = getId('ug').value - getId('u2').value;
+  }
+  if(getId('ru1').checked){
+    getId('ug').value = parseFloat(getId('u1').value) + parseFloat(getId('u2').value);
+  }
+  calc1();
+}
+
+function check(id){
+  getId(id).checked = true;
+  update();
+}
+
+function calc1(){
+  u1=getId("u1").value;
+  u2=getId("u2").value;
+
+  getId("result").innerHTML  = "Check for: "+ 
+      u1 +"/"+ u2 +" = "+ (u1/u2).toFixed(3) +"<br>";
+
+  if(getId("e12").checked){
+    r =rtGetE12(u1,u2);
+    getId("result").innerHTML  += "<br>E12: "+ r;
+  }
+
+  if(getId("e24").checked){
+    r =rtGetE24(u1,u2);
+    getId("result").innerHTML  += "<br>E24: "+ r;
+  }
+
+  if(getId("e48").checked){
+    r =rtGetE24(u1,u2);
+    getId("result").innerHTML  += "<br>E48: "+ r;
+  }
+
+  if(getId("e96").checked){
+    r =rtGetE96(u1,u2);
+    getId("result").innerHTML  += "<br>E96: "+ r;
+  }
+}
+
+</script>
+
+<body></body></html>
+
